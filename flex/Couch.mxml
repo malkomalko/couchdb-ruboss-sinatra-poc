@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Application xmlns:mx="http://www.adobe.com/2006/mxml"
+	layout="absolute"
+  initialize="init()">
+  <mx:Style source="/skin/yflexskin.css/"/>
+  <mx:Script>
+    <![CDATA[
+    	import couch.models.Task;
+    	import couch.models.Project;
+    	import couch.controllers.AppController;
+      import couch.controllers.ModelsController;
+      import org.ruboss.services.http.JSONHTTPServiceProvider;
+    	import org.ruboss.utils.RubossUtils;
+      import org.ruboss.Ruboss;
+    	
+      private function init():void {
+      	Ruboss.enableLogging();
+        AppController.initialize([JSONHTTPServiceProvider],JSONHTTPServiceProvider.ID);
+        projectsList.dataProvider = Ruboss.models.index(Project);
+        tasksList.dataProvider = Ruboss.models.index(Task);
+      }
+      
+      private function saveSelectedProject():void {
+      	var project:Project = new Project;
+		    project.title = titleTI.text;
+		    project.create();
+	    }
+
+    ]]>
+  </mx:Script>
+  
+	<mx:HDividedBox horizontalGap="5" top="20" left="20" right="20" bottom="20">
+		
+		<!-- 1st -->
+		<mx:TitleWindow layout="absolute" title="Control Panel" height="100%" width="20%">
+			
+		</mx:TitleWindow>
+		
+		<!-- 2nd -->
+		<mx:VDividedBox width="60%" height="100%">
+			<mx:TitleWindow title="Actions" width="100%" height="50%">
+				<mx:Form width="95%" height="100%">
+		      <mx:FormItem label="Title" width="100%">
+		        <mx:TextInput id="titleTI" width="100%"/>
+		      </mx:FormItem>
+      		<mx:Spacer height="100%"/>
+		      <mx:Button label="Create Project" click="saveSelectedProject();"/>
+   			</mx:Form>
+			</mx:TitleWindow>
+			<mx:Accordion width="100%" height="50%" creationPolicy="all">
+				<mx:Canvas label="Projects" width="100%" height="100%">
+					<mx:DataGrid id="projectsList" width="100%" height="100%">
+						<mx:columns>
+							<mx:DataGridColumn headerText="Title" dataField="title"/>
+							<mx:DataGridColumn headerText="Name" dataField="name"/>
+							<mx:DataGridColumn headerText="Body" dataField="body"/>
+						</mx:columns>
+					</mx:DataGrid>
+				</mx:Canvas>
+				<mx:Canvas label="Todos" width="100%" height="100%">
+
+				</mx:Canvas>
+				<mx:Canvas label="Tasks" width="100%" height="100%">
+					<mx:DataGrid id="tasksList" width="100%" height="100%">
+						<mx:columns>
+							<mx:DataGridColumn headerText="Name" dataField="name"/>
+						</mx:columns>
+					</mx:DataGrid>
+				</mx:Canvas>
+			</mx:Accordion>
+		</mx:VDividedBox>
+		
+		<!-- 3rd -->
+		<mx:VDividedBox width="20%" height="100%">
+			<mx:TitleWindow width="100%" height="250" title="Calendar">
+				<mx:DateChooser height="100%" width="100%"/>
+			</mx:TitleWindow>
+			<mx:TitleWindow width="100%" layout="absolute" title="Info" height="100%">
+				
+			</mx:TitleWindow>
+		</mx:VDividedBox>	
+	</mx:HDividedBox>
+</mx:Application>

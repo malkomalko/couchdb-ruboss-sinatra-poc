@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<degrafa:GraphicRectangularBorderSkin xmlns:mx="http://www.adobe.com/2006/mxml" 
+	width="400" height="300" xmlns:degrafa="http://www.degrafa.com/2007">
+
+	<mx:Script>
+		<![CDATA[
+			import mx.core.EdgeMetrics;
+			
+			[Bindable]
+			private var skinWidth : Number = 0;
+			
+			[Bindable]
+			private var skinHeight : Number = 0;
+			
+			[Bindable]
+			private var cw : Number = 20;
+			
+			private var edges : EdgeMetrics = new EdgeMetrics(20, 5, 20, 5);
+			
+			override protected function updateDisplayList(unscaledWidth : Number, unscaledHeight : Number) : void
+			{
+			    skinWidth = unscaledWidth;
+			    skinHeight = unscaledHeight + 35;
+			    super.updateDisplayList(unscaledWidth, unscaledHeight);
+			}
+			
+			override public function get borderMetrics() : EdgeMetrics
+			{
+			    return edges;
+			}
+
+    ]]>
+	</mx:Script>
+
+	<degrafa:fills>
+    <degrafa:LinearGradientFill angle="90" id="f">
+	    <degrafa:GradientStop ratio="0" color="#A2D9EF"/>
+	    <degrafa:GradientStop ratio="1" color="#85CDEA"/>
+    </degrafa:LinearGradientFill>
+
+    <degrafa:LinearGradientFill angle="90" id="f2">
+	    <degrafa:GradientStop ratio="0.3" alpha="0.02" color="#ffffff"/>
+	    <degrafa:GradientStop ratio="1" alpha="0.3" color="#ffffff"/>
+    </degrafa:LinearGradientFill>
+	</degrafa:fills>
+
+	<degrafa:geometry>
+
+		<degrafa:Path fill="{f}">
+			<degrafa:MoveTo x="0" y="{ cw }"/>
+	    <degrafa:QuadraticBezierTo x="{ cw }" y="0" cx="1" cy="1"/>
+	    <degrafa:LineTo x="{skinWidth - cw }" y="0"/>
+	    <degrafa:QuadraticBezierTo x="{ skinWidth }" y="{ cw }" cx="{skinWidth - 1 }" cy="1"/>
+	    <degrafa:LineTo x="{ skinWidth }" y="{ skinHeight - cw - 35 }"/>
+	    <degrafa:QuadraticBezierTo x="{ skinWidth - cw }" y="{ skinHeight -35 }" cx="{ skinWidth - 1 }" cy="{ skinHeight - 36 }"/>
+	    <degrafa:LineTo x="{ skinWidth - cw - 5}" y="{ skinHeight - 35 }"/>
+	    <degrafa:QuadraticBezierTo x="{ skinWidth - cw - 16 }" y="{skinHeight - 26 }" cx="{ skinWidth - cw - 10}" cy="{ skinHeight - 24 }"/>
+	    <degrafa:QuadraticBezierTo x="{ skinWidth - cw - 24 }" y="{skinHeight - 35 }" cx="{ skinWidth - cw - 12}" cy="{ skinHeight - 35 }"/>
+	    <degrafa:LineTo x="{ cw }" y="{ skinHeight - 35 }"/>
+	    <degrafa:QuadraticBezierTo x="0" y="{ skinHeight - 35 - cw }" cx="1" cy="{ skinHeight - 36 }"/>
+	    <degrafa:ClosePath/> 
+		</degrafa:Path>
+		
+		<degrafa:Path fill="{f2}">
+	    <degrafa:MoveTo x="10" y="{ skinHeight / 2 }"/>
+	    <degrafa:CubicBezierTo x="20" y="0" cx="0" cy="{skinHeight * 0.25}" cx1="1" cy1="1"/>
+	    <degrafa:LineTo x="{ skinWidth - 20}" y="0"/>
+	    <degrafa:CubicBezierTo x="{ skinWidth - 10 }" y="{ skinHeight / 2 }" cx="{ skinWidth - 1}" cy="1" cx1="{ skinWidth }" cy1="{ skinHeight * 0.25 }"/>
+	    <degrafa:CubicBezierTo x="10" y="{ skinHeight / 2 }" cx="{ skinWidth * 0.75 }" cy="{ skinHeight * 0.4}" cx1="{ skinWidth * 0.25 }" cy1="{ skinHeight * 0.4}"/>
+	    <degrafa:ClosePath/>
+		</degrafa:Path>
+	
+	</degrafa:geometry>
+
+    <degrafa:filters>
+	    <mx:GlowFilter inner="true" color="#000000" blurX="3" blurY="3" alpha="0.3"/>
+	    <mx:DropShadowFilter alpha="0.3" angle="90" distance="5" blurX="8" blurY="8"/>
+    </degrafa:filters>
+
+</degrafa:GraphicRectangularBorderSkin>
