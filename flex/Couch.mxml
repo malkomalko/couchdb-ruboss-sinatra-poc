@@ -5,25 +5,44 @@
   <mx:Style source="/skin/yflexskin.css/"/>
   <mx:Script>
     <![CDATA[
-    	import couch.models.Task;
     	import couch.models.Project;
+    	import couch.models.Task;
     	import couch.controllers.AppController;
       import couch.controllers.ModelsController;
+    	import org.ruboss.collections.RubossCollection;
+    	import org.ruboss.events.CacheUpdateEvent;
       import org.ruboss.services.http.JSONHTTPServiceProvider;
     	import org.ruboss.utils.RubossUtils;
       import org.ruboss.Ruboss;
+      
+      [Bindable]
+      private var _projects:RubossCollection;
+      
+      [Bindable]
+      private var _tasks:RubossCollection;
     	
       private function init():void {
       	Ruboss.enableLogging();
         AppController.initialize([JSONHTTPServiceProvider],JSONHTTPServiceProvider.ID);
-        projectsList.dataProvider = Ruboss.models.index(Project);
-        tasksList.dataProvider = Ruboss.models.index(Task);
+        Ruboss.models.addEventListener(CacheUpdateEvent.ID, onCacheUpdate);
+        Ruboss.models.index(Project);
+        Ruboss.models.index(Task);
+      }
+      
+      private function onCacheUpdate(event:CacheUpdateEvent):void {
+	      if (event.isFor(Project)) {
+	        _projects = Ruboss.models.cached(Project);
+	        projectsList.dataProvider = _projects;
+	      } else if (event.isFor(Task)) {
+	      	_tasks = Ruboss.models.cached(Task);
+	      	tasksList.dataProvider = _tasks;
+	      }
       }
       
       private function saveSelectedProject():void {
       	var project:Project = new Project;
 		    project.title = titleTI.text;
-		    project.create();
+		    project.create({targetServiceId: JSONHTTPServiceProvider.ID});
 	    }
 
     ]]>
