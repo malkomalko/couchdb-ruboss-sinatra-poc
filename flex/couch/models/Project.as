@@ -7,8 +7,7 @@ package couch.models {
     public static const LABEL:String = "title";
 
     public var title:String;
-    //public var name:String;
-    //public var body:String;
+    public var body:String;
 
     public function Project() {
       super(LABEL);

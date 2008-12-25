@@ -15,7 +15,7 @@ require File.dirname(__FILE__) + "/lib/inflector"
 ############################################################
 
 class Project < CouchRest::Model
-  key_accessor :title, :body, :name
+  key_accessor :title, :body
   timestamps!
 end
 

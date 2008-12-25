@@ -19,6 +19,9 @@
       private var _projects:RubossCollection;
       
       [Bindable]
+      private var _selectedProject:Project = new Project;
+      
+      [Bindable]
       private var _tasks:RubossCollection;
     	
       private function init():void {
@@ -31,7 +34,7 @@
       
       private function onCacheUpdate(event:CacheUpdateEvent):void {
 	      if (event.isFor(Project)) {
-	        _projects = Ruboss.models.cached(Project);
+	        _projects = Ruboss.models.index(Project);
 	        projectsList.dataProvider = _projects;
 	      } else if (event.isFor(Task)) {
 	      	_tasks = Ruboss.models.cached(Task);
@@ -39,9 +42,14 @@
 	      }
       }
       
+      private function onProjectSelect():void {
+      	_selectedProject = RubossUtils.clone(projectsList.selectedItem) as Project;
+      }
+      
       private function saveSelectedProject():void {
       	var project:Project = new Project;
 		    project.title = titleTI.text;
+		    project.body = bodyTA.text;
 		    project.create({targetServiceId: JSONHTTPServiceProvider.ID});
 	    }
 
@@ -56,11 +64,14 @@
 		</mx:TitleWindow>
 		
 		<!-- 2nd -->
-		<mx:VDividedBox width="60%" height="100%">
+		<mx:VDividedBox width="50%" height="100%">
 			<mx:TitleWindow title="Actions" width="100%" height="50%">
 				<mx:Form width="95%" height="100%">
 		      <mx:FormItem label="Title" width="100%">
 		        <mx:TextInput id="titleTI" width="100%"/>
+		      </mx:FormItem>
+		      <mx:FormItem label="Body" width="100%">
+		        <mx:TextArea id="bodyTA" width="100%" height="150"/>
 		      </mx:FormItem>
       		<mx:Spacer height="100%"/>
 		      <mx:Button label="Create Project" click="saveSelectedProject();"/>
@@ -68,10 +79,10 @@
 			</mx:TitleWindow>
 			<mx:Accordion width="100%" height="50%" creationPolicy="all">
 				<mx:Canvas label="Projects" width="100%" height="100%">
-					<mx:DataGrid id="projectsList" width="100%" height="100%">
+					<mx:DataGrid id="projectsList" width="100%" height="100%"
+						change="onProjectSelect()">
 						<mx:columns>
 							<mx:DataGridColumn headerText="Title" dataField="title"/>
-							<mx:DataGridColumn headerText="Name" dataField="name"/>
 							<mx:DataGridColumn headerText="Body" dataField="body"/>
 						</mx:columns>
 					</mx:DataGrid>
@@ -90,12 +101,14 @@
 		</mx:VDividedBox>
 		
 		<!-- 3rd -->
-		<mx:VDividedBox width="20%" height="100%">
-			<mx:TitleWindow width="100%" height="250" title="Calendar">
-				<mx:DateChooser height="100%" width="100%"/>
-			</mx:TitleWindow>
+		<mx:VDividedBox width="30%" height="100%">
 			<mx:TitleWindow width="100%" layout="absolute" title="Info" height="100%">
-				
+				<mx:VBox height="100%" width="95%"
+					paddingLeft="5" paddingTop="10" paddingBottom="10">
+					<mx:Text text="{_selectedProject.title}" width="100%"
+						fontSize="14" fontWeight="bold"/>
+					<mx:Text text="{_selectedProject.body}" width="100%"/>
+				</mx:VBox>
 			</mx:TitleWindow>
 		</mx:VDividedBox>	
 	</mx:HDividedBox>
