@@ -63,4 +63,5 @@ post '/:model.json' do
   
   record = model.new(new_params)
   record.save
+  record.to_json
 end
