@@ -1,3 +1,7 @@
+############################################################
+# require lib's
+############################################################
+
 require "rubygems"
 require "sinatra"
 require "couchrest"
@@ -9,33 +13,13 @@ rescue LoadError
 end
 
 require File.dirname(__FILE__) + "/lib/inflector"
-
-############################################################
-# models (couchrest)
-############################################################
-
-class Project < CouchRest::Model
-  key_accessor :title, :body
-  timestamps!
-end
-
-class Task < CouchRest::Model
-  key_accessor :name
-  timestamps!
-end
+require File.dirname(__FILE__) + "/models/couch_model"
 
 ############################################################
 # setup
 ############################################################
 
 mime :json, "application/json"
-
-configure do
-  CouchUrl = "http://localhost:5984/sinatra"
-  [Project, Task].each do |model|
-    model.use_database(CouchRest.database!(CouchUrl))
-  end
-end
 
 ############################################################
 # routes
@@ -58,7 +42,8 @@ post '/:model.json' do
 
   new_params = {}
   params.each do |k,v|
-    new_params["#{k.gsub(']','').gsub(params['model']+'[','')}"] = v
+    new_params["#{k.gsub(']','').
+      gsub(params['model']+'[','')}"] = v
   end
   
   record = model.new(new_params)
