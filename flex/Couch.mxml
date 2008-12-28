@@ -5,10 +5,16 @@
   <mx:Style source="/skin/yflexskin.css/"/>
   <mx:Script>
     <![CDATA[
+    
+    	//models
     	import couch.models.Project;
     	import couch.models.Task;
+    	
+    	//controllers
     	import couch.controllers.AppController;
       import couch.controllers.ModelsController;
+      
+      //ruboss
     	import org.ruboss.collections.RubossCollection;
     	import org.ruboss.events.CacheUpdateEvent;
       import org.ruboss.services.http.JSONHTTPServiceProvider;
@@ -58,25 +64,13 @@
   
 	<mx:HDividedBox horizontalGap="5" top="20" left="20" right="20" bottom="20">
 		
-		<!-- 1st -->
+		<!-- Left Column -->
 		<mx:TitleWindow layout="absolute" title="Control Panel" height="100%" width="20%">
 			
 		</mx:TitleWindow>
 		
-		<!-- 2nd -->
+		<!-- Middle Column -->
 		<mx:VDividedBox width="50%" height="100%">
-			<mx:TitleWindow title="Actions" width="100%" height="50%">
-				<mx:Form width="95%" height="100%">
-		      <mx:FormItem label="Title" width="100%">
-		        <mx:TextInput id="titleTI" width="100%"/>
-		      </mx:FormItem>
-		      <mx:FormItem label="Body" width="100%">
-		        <mx:TextArea id="bodyTA" width="100%" height="150"/>
-		      </mx:FormItem>
-      		<mx:Spacer height="100%"/>
-		      <mx:Button label="Create Project" click="saveSelectedProject();"/>
-   			</mx:Form>
-			</mx:TitleWindow>
 			<mx:Accordion width="100%" height="50%" creationPolicy="all">
 				<mx:Canvas label="Projects" width="100%" height="100%">
 					<mx:DataGrid id="projectsList" width="100%" height="100%"
@@ -98,9 +92,21 @@
 					</mx:DataGrid>
 				</mx:Canvas>
 			</mx:Accordion>
+			<mx:TitleWindow title="Actions" width="100%" height="50%">
+				<mx:Form width="95%" height="100%">
+		      <mx:FormItem label="Title" width="100%">
+		        <mx:TextInput id="titleTI" width="100%"/>
+		      </mx:FormItem>
+		      <mx:FormItem label="Body" width="100%">
+		        <mx:TextArea id="bodyTA" width="100%" height="150"/>
+		      </mx:FormItem>
+      		<mx:Spacer height="100%"/>
+		      <mx:Button label="Create Project" click="saveSelectedProject();"/>
+   			</mx:Form>
+			</mx:TitleWindow>
 		</mx:VDividedBox>
 		
-		<!-- 3rd -->
+		<!-- Right Column -->
 		<mx:VDividedBox width="30%" height="100%">
 			<mx:TitleWindow width="100%" layout="absolute" title="Info" height="100%">
 				<mx:VBox height="100%" width="95%"
@@ -110,6 +116,7 @@
 					<mx:Text text="{_selectedProject.body}" width="100%"/>
 				</mx:VBox>
 			</mx:TitleWindow>
-		</mx:VDividedBox>	
+		</mx:VDividedBox>
+		
 	</mx:HDividedBox>
 </mx:Application>
