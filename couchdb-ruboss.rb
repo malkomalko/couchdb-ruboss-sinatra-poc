@@ -26,7 +26,7 @@ mime :json, "application/json"
 ############################################################
 
 get '/' do
-  redirect '/Couch.html'
+  erb :index
 end
 
 get '/:model.json' do
