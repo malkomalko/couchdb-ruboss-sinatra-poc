@@ -21,11 +21,6 @@ require File.dirname(__FILE__) + "/models/couch_model"
 
 mime :json, "application/json"
 
-before do 
-  # kill trailing slashes for all requests except '/'
-  request.env['PATH_INFO'].gsub!(/\/$/, '') if request.env['PATH_INFO'] != '/'
-end
-
 ############################################################
 # routes
 ############################################################
