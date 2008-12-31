@@ -32,6 +32,7 @@
     	
       private function init():void {
       	Ruboss.enableLogging();
+      	Ruboss.httpRootUrl = "/couchdb";
         AppController.initialize([JSONHTTPServiceProvider],JSONHTTPServiceProvider.ID);
         Ruboss.models.addEventListener(CacheUpdateEvent.ID, onCacheUpdate);
         Ruboss.models.index(Project);
