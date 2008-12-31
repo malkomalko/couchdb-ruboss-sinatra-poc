@@ -33,14 +33,14 @@ get '/' do
   erb :index
 end
 
-get '/:model.json' do
+get '/couchdb/:model.json' do
   string = Inflector.camelize("#{params[:model]}")
   model  = Inflector.constantize(string)
   
   model.all.to_json
 end
 
-post '/:model.json' do
+post '/couchdb/:model.json' do
   string = Inflector.camelize("#{params[:model]}")
   model  = Inflector.constantize(string)
 
