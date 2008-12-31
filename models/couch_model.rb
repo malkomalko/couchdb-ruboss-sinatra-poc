@@ -8,7 +8,7 @@ class CouchModel < CouchRest::Model
     require File.dirname(__FILE__) + "/#{model}"
   end
   
-  CouchUrl = "http://localhost:5984/sinatra"
+  CouchUrl = "http://127.0.0.1:5984/sinatra"
   self.use_database(CouchRest.database!(CouchUrl))
   
   ############################################################
