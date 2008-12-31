@@ -33,6 +33,10 @@ get '/' do
   erb :index
 end
 
+get '/env' do
+  "#{Sinatra.env}"
+end
+
 get '/:model.json' do
   string = Inflector.camelize("#{params[:model]}")
   model  = Inflector.constantize(string)
