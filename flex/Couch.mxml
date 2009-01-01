@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <mx:Application xmlns:mx="http://www.adobe.com/2006/mxml"
 	layout="absolute"
-  initialize="init()" xmlns:components="couch.components.*">
+  creationComplete="init()" xmlns:components="couch.components.*">
   <mx:Style source="/skin/yflexskin.css/"/>
   <mx:Script>
     <![CDATA[
@@ -30,7 +30,9 @@
         AppController.initialize([JSONHTTPServiceProvider],JSONHTTPServiceProvider.ID);
         
         //setting the root path for development/production
-        Ruboss.httpRootUrl = "/couchdb/";
+        var myEnvironment:String = Application.application.parameters.environment;
+        if (myEnvironment == 'production')
+        	Ruboss.httpRootUrl = "/couchdb/";
         
         //load up app to call models controller
         var app:App = new App;

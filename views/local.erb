@@ -88,7 +88,8 @@ if ( hasProductInstall && !hasRequestedVersion ) {
 			"name", "Couch",
 			"allowScriptAccess","sameDomain",
 			"type", "application/x-shockwave-flash",
-			"pluginspage", "http://www.adobe.com/go/getflashplayer"
+			"pluginspage", "http://www.adobe.com/go/getflashplayer",
+			"FlashVars", "environment=<%= Sinatra.env %>"
 	);
   } else {  // flash is too old or we can't detect the plugin
     var alternateContent = 'Alternate HTML content should be placed here. '
