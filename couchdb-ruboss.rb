@@ -26,15 +26,18 @@ mime :json, "application/json"
 ############################################################
 
 get '' do
-  erb :index
+  Sinatra.env.to_s == 'development' ? (erb :local) : (erb :production)
 end
 
 get '/' do
-  erb :index
+  Sinatra.env.to_s == 'development' ? (erb :local) : (erb :production)
 end
 
-get '/env' do
-  "#{Sinatra.env}"
+####
+# passing in arbitrary data to flex, kind've like to_fxml
+get '/server_settings.json' do
+  { "_id" => "1", "_rev" => "1", "ruby_class" => "ServerSetting",
+    "environment" => Sinatra.env.to_s }.to_json
 end
 
 get '/:model.json' do

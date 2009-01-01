@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <mx:Application xmlns:mx="http://www.adobe.com/2006/mxml"
 	layout="absolute"
-  initialize="init()">
+  creationComplete="init()">
   <mx:Style source="/skin/yflexskin.css/"/>
   <mx:Script>
     <![CDATA[
@@ -9,6 +9,7 @@
     	//models
     	import couch.models.Project;
     	import couch.models.Task;
+    	import couch.models.ServerSetting;
     	
     	//controllers
     	import couch.controllers.AppController;
@@ -29,24 +30,34 @@
       
       [Bindable]
       private var _tasks:RubossCollection;
+      
+      [Bindable]
+      private var _serverSettings:RubossCollection;
     	
       private function init():void {
       	Ruboss.enableLogging();
-      	Ruboss.httpRootUrl = "/couchdb/";
         AppController.initialize([JSONHTTPServiceProvider],JSONHTTPServiceProvider.ID);
         Ruboss.models.addEventListener(CacheUpdateEvent.ID, onCacheUpdate);
-        Ruboss.models.index(Project);
-        Ruboss.models.index(Task);
+        Ruboss.models.index(ServerSetting);
       }
       
       private function onCacheUpdate(event:CacheUpdateEvent):void {
-	      if (event.isFor(Project)) {
+	      if (event.isFor(ServerSetting)) {
+	      	//workaround for development vs production
+	      	_serverSettings = Ruboss.models.cached(ServerSetting);
+	      	if (_serverSettings.getItemAt(0) == 'production')
+	      		Ruboss.httpRootUrl = "/couchdb/";
+	      	
+	      	Ruboss.models.index(Project);
+        	Ruboss.models.index(Task);
+        	
+	      } else if (event.isFor(Project)) {
 	        _projects = Ruboss.models.index(Project);
 	        projectsList.dataProvider = _projects;
 	      } else if (event.isFor(Task)) {
 	      	_tasks = Ruboss.models.cached(Task);
 	      	tasksList.dataProvider = _tasks;
-	      }
+	      } 
       }
       
       private function onProjectSelect():void {
@@ -81,9 +92,6 @@
 							<mx:DataGridColumn headerText="Body" dataField="body"/>
 						</mx:columns>
 					</mx:DataGrid>
-				</mx:Canvas>
-				<mx:Canvas label="Todos" width="100%" height="100%">
-
 				</mx:Canvas>
 				<mx:Canvas label="Tasks" width="100%" height="100%">
 					<mx:DataGrid id="tasksList" width="100%" height="100%">

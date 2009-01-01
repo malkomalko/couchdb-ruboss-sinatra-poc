@@ -10,7 +10,7 @@ package couch.controllers {
   public class AppController extends RubossApplicationController {
     private static var controller:AppController;
     
-    public static var models:Array = [Project, Task];
+    public static var models:Array = [Project, Task, ServerSetting];
     
     public static var commands:Array = [];
     
