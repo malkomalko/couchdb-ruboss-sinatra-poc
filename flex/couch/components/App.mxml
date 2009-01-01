@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Canvas xmlns:mx="http://www.adobe.com/2006/mxml"
+	width="100%" height="100%">
+  <mx:Script>
+    <![CDATA[
+    
+    	//models
+    	import couch.models.Project;
+    	
+    	//controllers
+      import couch.controllers.ModelsController;
+      
+      //ruboss
+    	import org.ruboss.collections.RubossCollection;
+    	import org.ruboss.utils.RubossUtils;
+      import org.ruboss.Ruboss;
+      
+      [Bindable]
+      private var _selectedProject:Project = new Project;
+      
+      private function onProjectSelect():void {
+      	_selectedProject = RubossUtils.clone(projectsList.selectedItem) as Project;
+      }
+      
+      private function saveSelectedProject():void {
+      	var project:Project = new Project;
+		    project.title = titleTI.text;
+		    project.body = bodyTA.text;
+		    project.create();
+	    }
+
+    ]]>
+  </mx:Script>
+  
+	<mx:HDividedBox horizontalGap="5" top="20" left="20" right="20" bottom="20">
+		
+		<!-- Left Column -->
+		<mx:TitleWindow layout="absolute" title="Control Panel" height="100%" width="20%">
+			
+		</mx:TitleWindow>
+		
+		<!-- Middle Column -->
+		<mx:VDividedBox width="50%" height="100%">
+			<mx:Accordion width="100%" height="50%" creationPolicy="all">
+				<mx:Canvas label="Projects" width="100%" height="100%">
+					<mx:DataGrid id="projectsList" width="100%" height="100%"
+						change="onProjectSelect()" dataProvider="{Couch.models._projects}">
+						<mx:columns>
+							<mx:DataGridColumn headerText="Title" dataField="title"/>
+							<mx:DataGridColumn headerText="Body" dataField="body"/>
+						</mx:columns>
+					</mx:DataGrid>
+				</mx:Canvas>
+				<mx:Canvas label="Tasks" width="100%" height="100%">
+					<mx:DataGrid id="tasksList" width="100%" height="100%"
+						dataProvider="{Couch.models._tasks}">
+						<mx:columns>
+							<mx:DataGridColumn headerText="Name" dataField="name"/>
+						</mx:columns>
+					</mx:DataGrid>
+				</mx:Canvas>
+			</mx:Accordion>
+			<mx:TitleWindow title="Actions" width="100%" height="50%">
+				<mx:Form width="95%" height="100%">
+		      <mx:FormItem label="Title" width="100%">
+		        <mx:TextInput id="titleTI" width="100%"/>
+		      </mx:FormItem>
+		      <mx:FormItem label="Body" width="100%">
+		        <mx:TextArea id="bodyTA" width="100%" height="150"/>
+		      </mx:FormItem>
+      		<mx:Spacer height="100%"/>
+		      <mx:Button label="Create Project" click="saveSelectedProject();"/>
+   			</mx:Form>
+			</mx:TitleWindow>
+		</mx:VDividedBox>
+		
+		<!-- Right Column -->
+		<mx:VDividedBox width="30%" height="100%">
+			<mx:TitleWindow width="100%" layout="absolute" title="Info" height="100%">
+				<mx:VBox height="100%" width="95%"
+					paddingLeft="5" paddingTop="10" paddingBottom="10">
+					<mx:Text text="{_selectedProject.title}" width="100%"
+						fontSize="14" fontWeight="bold"/>
+					<mx:Text text="{_selectedProject.body}" width="100%"/>
+				</mx:VBox>
+			</mx:TitleWindow>
+		</mx:VDividedBox>
+		
+	</mx:HDividedBox>
+</mx:Canvas>

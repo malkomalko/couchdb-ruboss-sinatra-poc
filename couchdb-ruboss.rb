@@ -33,10 +33,8 @@ get '/' do
   Sinatra.env.to_s == 'development' ? (erb :local) : (erb :production)
 end
 
-####
-# passing in arbitrary data to flex, kind've like to_fxml
 get '/server_settings.json' do
-  { "_id" => "1", "_rev" => "1", "ruby_class" => "ServerSetting",
+  { "_id" => "1", "_rev" => "1",
     "environment" => Sinatra.env.to_s }.to_json
 end
 
