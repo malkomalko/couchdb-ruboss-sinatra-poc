@@ -84,7 +84,7 @@
     borderThickness="1" backgroundColor="#EEEEEE" width="25%" height="100%">
     <mx:List id="tasksList"
       width="100%" height="100%"
-      dataProvider="{Ruboss.models.index(Task)}"
+      dataProvider="{Couchdb.models.tasks}"
       change="onTaskSelect()"/>
     <mx:ControlBar width="100%">
       <mx:Button label="New Task" width="100%" height="30"

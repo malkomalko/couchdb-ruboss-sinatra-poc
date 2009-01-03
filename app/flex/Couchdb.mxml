@@ -7,6 +7,7 @@
     <![CDATA[
   	  import couchdb.components.App;
       import couchdb.controllers.ApplicationController;
+      import couchdb.controllers.ModelsController;
       
       //ruboss
 			import org.ruboss.services.http.JSONHTTPServiceProvider;
@@ -28,6 +29,11 @@
         var app:App = new App;
         container.addChild(app);
       }
+      
+      public static function get models():ModelsController {
+        return ModelsController.instance;
+      }
+      
     ]]>
   </mx:Script>
   <mx:Canvas id="container" styleName="appContainer"

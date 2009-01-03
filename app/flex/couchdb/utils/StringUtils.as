@@ -1,4 +1,4 @@
-package couch.utils{
+package couchdb.utils{
   public final class StringUtils{
 	public static function generateRandomString(newLength:uint = 1, userAlphabet:String = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"):String{
 	  var alphabet:Array = userAlphabet.split("");

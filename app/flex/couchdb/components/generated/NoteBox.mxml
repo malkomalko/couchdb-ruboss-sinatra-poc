@@ -68,7 +68,7 @@
     borderThickness="1" backgroundColor="#EEEEEE" width="25%" height="100%">
     <mx:List id="notesList"
       width="100%" height="100%"
-      dataProvider="{Ruboss.models.index(Note)}"
+      dataProvider="{Couchdb.models.notes}"
       change="onNoteSelect()"/>
     <mx:ControlBar width="100%">
       <mx:Button label="New Note" width="100%" height="30"

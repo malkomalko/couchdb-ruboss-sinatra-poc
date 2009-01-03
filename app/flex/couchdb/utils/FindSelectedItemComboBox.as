@@ -1,4 +1,4 @@
-package couch.utils
+package couchdb.utils
 {
  import mx.collections.IViewCursor;
  import mx.controls.ComboBox;

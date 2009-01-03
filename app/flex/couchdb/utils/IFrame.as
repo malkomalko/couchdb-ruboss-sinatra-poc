@@ -100,7 +100,7 @@
 // 
 // -----------------------------------------------------------------------
 
-package couch.utils
+package couchdb.utils
 {
     import flash.display.DisplayObject;
     import flash.display.DisplayObjectContainer;
