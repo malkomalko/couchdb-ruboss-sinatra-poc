@@ -16,9 +16,7 @@ Dir["lib/*.rb"].each do |f|
   require f
 end
 
-Dir["models/*.rb"].each do |f|
-  require f
-end
+require "models/couch_model"
 
 ############################################################
 # setup
