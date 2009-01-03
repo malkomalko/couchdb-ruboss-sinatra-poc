@@ -17,6 +17,7 @@
       	Ruboss.enableLogging();
       	
       	//load couchdb server
+      	Ruboss.couchDBRootUrl = 'http://localhost:5984/'
         ApplicationController.initialize([DirectCouchDBHTTPServiceProvider], DirectCouchDBHTTPServiceProvider.ID);
         
         //setting the root path for development/production
