@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<actionScriptProperties mainApplicationPath="Couch.mxml" version="3">
-<compiler additionalCompilerArguments="-locale en_US -keep-as3-metadata+=Resource,HasOne,HasMany,BelongsTo,DateTime,Lazy,Ignored -show-unused-type-selector-warnings=false" copyDependentFiles="true" enableModuleDebug="true" generateAccessible="false" htmlExpressInstall="true" htmlGenerate="true" htmlHistoryManagement="true" htmlPlayerVersion="9.0.124" htmlPlayerVersionCheck="true" outputFolderPath="public/" rootURL="http://localhost:4567/" sourceFolderPath="flex" strict="true" useApolloConfig="false" verifyDigests="true" warn="true">
+<actionScriptProperties mainApplicationPath="Couchdb.mxml" version="3">
+<compiler additionalCompilerArguments="-locale en_US -keep-as3-metadata+=Resource,HasOne,HasMany,BelongsTo,DateTime,Lazy,Ignored -show-unused-type-selector-warnings=false" copyDependentFiles="true" enableModuleDebug="true" generateAccessible="false" htmlExpressInstall="true" htmlGenerate="true" htmlHistoryManagement="true" htmlPlayerVersion="9.0.124" htmlPlayerVersionCheck="true" outputFolderPath="public/" rootURL="http://localhost:4567/" sourceFolderPath="app/flex" strict="true" useApolloConfig="false" verifyDigests="true" warn="true">
 <compilerSourcePath/>
 <libraryPath defaultLinkType="1">
 <libraryPathEntry kind="4" path=""/>
@@ -10,7 +10,7 @@
 <sourceAttachmentPath/>
 </compiler>
 <applications>
-<application path="Couch.mxml"/>
+<application path="Couchdb.mxml"/>
 </applications>
 <modules/>
 <buildCSSFiles/>

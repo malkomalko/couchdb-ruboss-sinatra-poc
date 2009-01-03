@@ -1,5 +1,3 @@
 = Couchdb-Ruboss-Sinatra POC
 
-Lightweight Sinatra app utilizing CouchDB to talk Adobe Flex through Ruboss!!! 
-
-*more instructions coming soon*
+Lightweight Sinatra app utilizing CouchDB to talk Adobe Flex through Ruboss!!!

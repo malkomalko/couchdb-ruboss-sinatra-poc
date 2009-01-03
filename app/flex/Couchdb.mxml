@@ -1,46 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
 <mx:Application xmlns:mx="http://www.adobe.com/2006/mxml"
-	layout="absolute"
-  creationComplete="init()" xmlns:components="couch.components.*">
+  paddingBottom="8" paddingLeft="8" paddingRight="8" paddingTop="8"
+  layout="horizontal" styleName="plain" initialize="init()">
   <mx:Style source="/skin/yflexskin.css/"/>
   <mx:Script>
     <![CDATA[
-    	//components
-    	import couch.components.App;
-    
-    	//controllers
-    	import couch.controllers.AppController;
-      import couch.controllers.ModelsController;
+  	  import couchdb.components.App;
+      import couchdb.controllers.ApplicationController;
       
       //ruboss
-    	import org.ruboss.collections.RubossCollection;
-      import org.ruboss.services.http.JSONHTTPServiceProvider;
+			import org.ruboss.services.as3http.DirectCouchDBHTTPServiceProvider;      
       import org.ruboss.Ruboss;
-      
-      //shortcut functions
-      public static function get models():ModelsController {
-        return ModelsController.instance;
-      }
-      
+
       private function init():void {
-      	//enable logging
+        //enable logging
       	Ruboss.enableLogging();
       	
-      	//load json server provider
-        AppController.initialize([JSONHTTPServiceProvider],JSONHTTPServiceProvider.ID);
+      	//load couchdb server
+        ApplicationController.initialize([DirectCouchDBHTTPServiceProvider], DirectCouchDBHTTPServiceProvider.ID);
         
         //setting the root path for development/production
         var myEnvironment:String = Application.application.parameters.environment;
         if (myEnvironment == 'production')
         	Ruboss.httpRootUrl = "/couchdb/";
         
-        //load up app to call models controller
+        //load up app
         var app:App = new App;
         container.addChild(app);
       }
-
     ]]>
   </mx:Script>
   <mx:Canvas id="container" styleName="appContainer"
   	x="0" y="0" width="100%" height="100%"/>
 </mx:Application>
+
