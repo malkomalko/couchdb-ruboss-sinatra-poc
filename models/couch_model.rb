@@ -11,6 +11,7 @@ class CouchModel < CouchRest::Model
   # attributes
   ############################################################
   
+  key_accessor :_id, :model
   timestamps!
   
 end

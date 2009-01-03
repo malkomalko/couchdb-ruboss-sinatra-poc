@@ -2,7 +2,7 @@ package couchdb.models {
   import org.ruboss.collections.ModelsCollection;
   import org.ruboss.models.RubossModel;
   
-  [Resource(name="users")]
+  [Resource(name="user")]
   [Bindable]
   public class User extends RubossModel {
     public static const LABEL:String = "login";

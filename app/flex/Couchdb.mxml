@@ -9,7 +9,7 @@
       import couchdb.controllers.ApplicationController;
       
       //ruboss
-			import org.ruboss.services.as3http.DirectCouchDBHTTPServiceProvider;      
+			import org.ruboss.services.http.JSONHTTPServiceProvider;
       import org.ruboss.Ruboss;
 
       private function init():void {
@@ -17,8 +17,7 @@
       	Ruboss.enableLogging();
       	
       	//load couchdb server
-      	Ruboss.couchDBRootUrl = 'http://localhost:5984/'
-        ApplicationController.initialize([DirectCouchDBHTTPServiceProvider], DirectCouchDBHTTPServiceProvider.ID);
+        ApplicationController.initialize([JSONHTTPServiceProvider], JSONHTTPServiceProvider.ID);
         
         //setting the root path for development/production
         var myEnvironment:String = Application.application.parameters.environment;

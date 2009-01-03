@@ -1,7 +1,7 @@
 package couchdb.models {
   import org.ruboss.models.RubossModel;
   
-  [Resource(name="tasks")]
+  [Resource(name="task")]
   [Bindable]
   public class Task extends RubossModel {
     public static const LABEL:String = "name";
