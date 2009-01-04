@@ -137,7 +137,13 @@ delete '/:model/:id.json' do
   string = Inflector.camelize("#{params[:model]}")
   model  = Inflector.constantize(string)
   record = model.get(params[:id])
+  result = record.to_json
   record.destroy
   
-  model.all.to_json
+  puts "\n##############################"
+  puts "ACTION: Delete"
+  puts "JSON: #{result}"
+  puts "##############################\n\n"
+  
+  result
 end
