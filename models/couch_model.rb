@@ -17,5 +17,5 @@ class CouchModel < CouchRest::Model
   
   key_accessor :_id, :model
   timestamps!
-  
+
 end

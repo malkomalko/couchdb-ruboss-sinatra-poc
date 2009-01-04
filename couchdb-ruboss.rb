@@ -46,14 +46,28 @@ end
 get '/:model.json' do
   string = Inflector.camelize("#{params[:model]}")
   model  = Inflector.constantize(string)
-  model.all.to_json
+  result = model.all.to_json
+  
+  puts "\n##############################"
+  puts "ACTION: Index"
+  puts "JSON: #{result}"
+  puts "##############################\n\n"
+    
+  result
 end
 
 get '/:model/:id.json' do
   string = Inflector.camelize("#{params[:model]}")
   model  = Inflector.constantize(string)
   record = model.get(params[:id])
-  record.to_json
+  result = record.to_json
+  
+  puts "\n##############################"
+  puts "ACTION: Show"
+  puts "JSON: #{result}"
+  puts "##############################\n\n"
+    
+  result
 end
 
 post '/:model.json' do
@@ -69,12 +83,21 @@ post '/:model.json' do
       gsub(params['model']+'[','')}"] = v
   end
   
-  ############################################################
-  # save model based off newly formatted params hash
-  ############################################################
   record = model.new(new_params)
   record.save
-  record.to_json
+  result = record.to_json
+  
+  ############################################################
+  # log both old/new params to console for your viewing
+  ############################################################
+  puts "\n##############################"
+  puts "ACTION: Create"
+  puts "JSON: #{result}"
+  puts "OLD PARAMS: #{params.inspect}"
+  puts "NEW PARAMS: #{new_params.inspect}"
+  puts "##############################\n\n"
+    
+  result
 end
 
 put '/:model/:id.json' do
@@ -94,28 +117,27 @@ put '/:model/:id.json' do
     end
   end
   
+  record.update_attributes(new_params)
+  result = record.to_json
+  
   ############################################################
   # log both old/new params to console for your viewing
   ############################################################
-  puts "\n____PARAMS TO CONSOLE____\n
-    OLD PARAMS: #{params.inspect}\n
-    NEW PARAMS: #{new_params.inspect}\n\n"
+  puts "\n##############################"
+  puts "ACTION: Update"
+  puts "JSON: #{result}"
+  puts "OLD PARAMS: #{params.inspect}"
+  puts "NEW PARAMS: #{new_params.inspect}"
+  puts "##############################\n\n"
     
-  record.update_attributes(new_params)
-  record.to_json
+  result
 end
 
 delete '/:model/:id.json' do
   string = Inflector.camelize("#{params[:model]}")
   model  = Inflector.constantize(string)
   record = model.get(params[:id])
-  
-  ############################################################
-  # log both old/new params to console for your viewing
-  ############################################################
-  puts "____PARAMS TO CONSOLE____\n
-    PARAMS: #{params.inspect}\n\n"
-    
   record.destroy
-  redirect "/#{params[:model]}.json"
+  
+  model.all.to_json
 end
